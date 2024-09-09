@@ -1,15 +1,44 @@
-import { sumar } from './src/sumador';
 
-const first = document.querySelector("#primer-numero");
-const second = document.querySelector("#segundo-numero");
-const form = document.querySelector("#sumar-form");
-const div = document.querySelector("#resultado-div");
+import { greet, greetByName, greetByGender, isSpanish } from './src';
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
+const alertButton = document.getElementById('greet-button');
+alertButton.addEventListener('click', () => {
+  const languageSpanishCheckbox = document.getElementById('language-spanish');
+  const greeting = greet(isSpanish(languageSpanishCheckbox));
+  alert(greeting);
+});
 
-  const firstNumber = Number.parseInt(first.value);
-  const secondNumber = Number.parseInt(second.value);
+const greetButtonByName = document.getElementById('greet-button-by-name');
+greetButtonByName.addEventListener('click', () => {
+  const languageSpanishCheckbox = document.getElementById('language-spanish');
+  const nameInput = document.getElementById('name-input');
+  const name = nameInput.value.trim();
+  if (name) {
+    const greeting = greetByName(name, isSpanish(languageSpanishCheckbox));
+    alert(greeting);
+  } else alert('Please introduce your name.');
+});
 
-  div.innerHTML = "<p>" + sumar(firstNumber, secondNumber) + "</p>";
+const greetButtonByGender = document.getElementById('greet-button-by-gender');
+greetButtonByGender.addEventListener('click', () => {
+  const languageSpanishCheckbox = document.getElementById('language-spanish');
+  const nameInput = document.getElementById('name-input');
+  const genderMale = document.getElementById('gender-male');
+  const genderFemale = document.getElementById('gender-female');
+
+  const name = nameInput.value.trim();
+  if (name) {
+    if (genderMale.checked || genderFemale.checked) {
+      const greeting = greetByGender(
+        name,
+        genderMale.checked,
+        isSpanish(languageSpanishCheckbox)
+      );
+      alert(greeting);
+    } else {
+      alert('Please, select a gender.');
+    }
+  } else {
+    alert('Please introduce your name.');
+  }
 });
