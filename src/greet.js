@@ -1,0 +1,1 @@
+export const greet = isSpanish => { return isSpanish ? 'Hola' : 'Hello'; }
